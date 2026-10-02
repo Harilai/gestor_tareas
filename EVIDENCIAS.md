@@ -3,13 +3,13 @@
 ## Evidencias del grupo
 
 - URL del repositorio GitHub:
-- PR feature/anadir-tarea -> develop:
+- PR feature/anadir-tarea -> develop: https://github.com/Harilai/gestor_tareas/pull/1
 - PR feature/eliminar-tarea -> develop:
 - PR feature/completar-tarea -> develop:
 - PR feature/filtrar-tareas -> develop:
 - PR develop -> main:
-- Conflicto de README.md: indicar en qué rama apareció y cómo se resolvió.
-- Confirmar que el tag `v1.0` está publicado.
+- Conflicto de README.md: indicar en qué rama apareció y cómo se resolvió. 
+- Confirmar que el tag `v1.0` está publicado. 
 
 ## Historial final
 
