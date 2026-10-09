@@ -8,9 +8,9 @@
 - PR feature/eliminar-tarea -> develop: https://github.com/Harilai/gestor_tareas/pull/3
 - PR feature/completar-tarea -> develop: https://github.com/Harilai/gestor_tareas/pull/4
 - PR feature/filtrar-tareas -> develop: https://github.com/Harilai/gestor_tareas/pull/5
-- PR develop -> main: 
+- PR develop -> main: https://github.com/Harilai/gestor_tareas/pull/6/
 - Conflicto de README.md: indicar en qué rama apareció y cómo se resolvió: https://github.com/Harilai/gestor_tareas/pull/2/
-El conflicto aparecio al mergear la rama "ErrorReadmeMd" en la rama "feature/addTask. Esto sucedio porque en ambas ramas el mismo archivo "readme.md" estaba editado en la mismas lineas entonces como github no sabe que hacer lo marca como conflictor para que lo resolvamos. Se puede solucionar quedandote con una de las dos versiones y modificando el archivo para tener ambas cosas. 
+El conflicto aparecio al mergear la rama "ErrorReadmeMd" en la rama "feature/addTask. Esto sucedio porque en ambas ramas el mismo archivo "readme.md" estaba editado en la mismas lineas entonces como github no sabe que hacer lo marca como conflictor para que lo resolvamos. Se puede solucionar quedandote con una de las dos versiones y modificando el archivo para tener ambas cosas. Ademas hemos tenido un conflicto mergeando la rama "eliminar-tarea" a develop en EVIDENCIAS.MD y hemos terminado escogiendo la parte de la rama "eliminar-tarea".
 
 ## Historial final
 
