@@ -119,24 +119,26 @@ Compose crea una red para el proyecto y proporciona resolución DNS interna para
 
 - **Prueba simulada:** con Compose levantado, se intenta publicar de nuevo el puerto 8080:
   `docker run -d --name prueba-puerto -p 127.0.0.1:8080:80 nginx:stable-alpine`
-- **Resultado esperado:** Docker rechaza el arranque porque el puerto 8080 ya está ocupado por el servicio `proxy`. El mensaje indica que no se puede asignar la dirección porque el puerto ya está asignado (`port is already allocated`).
+- **Resultado esperado:** Docker rechaza el arranque porque el puerto 8080 ya está ocupado por el servicio `proxy` (`port is already allocated`).
 - **Causa:** dos contenedores no pueden reservar simultáneamente la misma dirección y puerto del host.
-- **Solución:** identificar al contenedor que publica el puerto con `docker ps`; detener/eliminar el contenedor de prueba si llegó a crearse (`docker rm -f prueba-puerto`) o elegir otro puerto del host. No es necesario borrar el volumen ni la imagen.
-- **Nota:** resultado documentado como simulación; no se ha ejecutado el comando en este equipo.
+- **Solución:** identificar al contenedor que publica el puerto con `docker ps`; liberar el puerto o elegir otro. No es necesario borrar el volumen ni la imagen.
 
 **Incidencia 2 - Cambios que no aparecen**
 
-- **Prueba:** modificar temporalmente el título de la página y volver a cargar el navegador sin reconstruir la imagen.
-- **Síntoma esperado:** el contenedor sigue mostrando la versión anterior porque contiene los archivos copiados durante la construcción de la imagen.
-- **Causa:** editar los archivos del proyecto no modifica automáticamente la imagen ni el contenedor.
-- **Solución:** reconstruir y recrear los servicios con `docker compose up -d --build`; comprobar el cambio y dejar el título definitivo.
+- **Prueba simulada:** cambiar temporalmente el título en `index.html` y recargar la web sin reconstruir la imagen.
+- **Resultado esperado:** se sigue mostrando el título anterior, porque el contenedor utiliza los archivos copiados al construir la imagen.
+- **Causa:** editar los archivos del proyecto no actualiza la imagen ni el contenedor.
+- **Solución:** ejecutar `docker compose up -d --build` para reconstruir la imagen y recrear el servicio. Comprobar el cambio y restaurar el título definitivo.
 
-**Incidencia 3 - Servicio incorrecto en Nginx**
+**Incidencia 3 - Proxy mal configurado**
 
-- **Prueba:** cambiar temporalmente `proxy_pass http://web:80;` por `proxy_pass http://servicio-inexistente:80;` en `proxy/default.conf`. Recrear el proxy con `docker compose up -d --force-recreate proxy` y consultar `docker compose logs proxy`.
-- **Síntoma esperado:** el proxy no puede resolver el nombre del servicio y las peticiones no llegan a la aplicación.
-- **Causa:** el nombre configurado no coincide con ningún servicio de la red de Compose.
+- **Prueba simulada:** cambiar en `proxy/default.conf` `proxy_pass http://web:80;` por `proxy_pass http://servicio-inexistente:80;` y recrear el proxy:
+  `docker compose up -d --force-recreate proxy`
+- **Resultado esperado:** Nginx no puede resolver el nombre del servicio inexistente; el proxy no arranca correctamente y la web deja de estar disponible a través del puerto 8080. El error se consulta con `docker compose logs proxy`.
+- **Causa:** el nombre indicado en `proxy_pass` no coincide con ningún servicio de la red de Compose.
 - **Solución:** restaurar `proxy_pass http://web:80;` y recrear el proxy con `docker compose up -d --force-recreate proxy`. Comprobar de nuevo `http://localhost:8080`.
+
+> Las tres incidencias se han documentado mediante simulación teórica de sus resultados; no se han ejecutado los fallos en el equipo.
 
 ## 6. Conclusión del equipo
 
