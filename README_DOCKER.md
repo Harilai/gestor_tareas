@@ -1,8 +1,8 @@
 # Despliegue Docker del gestor de tareas
 
-**Equipo:** TODO
-**Integrantes:** TODO
-**Repositorio de GitHub:** TODO
+**Equipo:** Abichuelas  
+**Integrantes:** Daniel Tejero, Pablo Serdio, Pablo Blanco, Eustakio Gonzalez  
+**Repositorio de GitHub:** https://github.com/Harilai/gestor_tareas
 
 ## Requisitos
 
