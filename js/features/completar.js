@@ -1,6 +1,6 @@
 export function activarCompletar(render) {
   const taskList = document.querySelector('#task-list');
-
+  
   taskList.addEventListener('click', (event) => {
     const boton = event.target.closest('[data-action="complete"]');
     if (!boton) return;
