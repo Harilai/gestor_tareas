@@ -20,14 +20,34 @@ docker --version
 docker compose version
 docker run --rm hello-world
 docker pull nginx:stable-alpine
+docker images
 docker run -d --name nginx-prueba -p 127.0.0.1:8081:80 nginx:stable-alpine
+docker ps
+docker logs nginx-prueba
+docker exec -it nginx-prueba sh
+```
+
+Dentro del contenedor se puede comprobar el contenido de la carpeta web con:
+
+```sh
+ls /usr/share/nginx/html
+exit
+```
+
+Después:
+
+```powershell
 docker stop nginx-prueba
 docker start nginx-prueba
 docker stop nginx-prueba
 docker rm nginx-prueba
 ```
 
-**¿Qué significa `8081:80`?**
+**¿Qué hace la opción `--rm`?**
+
+Elimina automáticamente el contenedor cuando termina su ejecución. La imagen utilizada no se elimina.
+
+**¿Qué significa `127.0.0.1:8081:80`?**
 
 El puerto 8081 del ordenador se redirige al puerto 80 del contenedor, donde escucha Nginx. `127.0.0.1` limita el acceso al propio ordenador.
 
@@ -54,6 +74,10 @@ docker compose up -d --build
 
 La imagen contiene una copia de los archivos realizada durante la construcción. Editar el proyecto no modifica los contenedores existentes; hay que reconstruir la imagen y recrear el servicio.
 
+**¿Para qué sirve `.dockerignore`?**
+
+Indica qué archivos y carpetas se excluyen del contexto enviado a Docker durante la construcción de la imagen. Así se evita copiar elementos innecesarios, como los archivos de Git o las evidencias.
+
 ## 3. Persistencia de datos
 
 - [x] Volumen creado.
@@ -74,6 +98,10 @@ docker run --rm -v gestor-datos:/datos alpine cat /datos/prueba.txt
 ```text
 Datos persistentes de gestor_tareas
 ```
+
+**¿Por qué se conserva el archivo cuando desaparece el primer contenedor?**
+
+Porque el archivo se guarda en un volumen Docker, que tiene un ciclo de vida independiente del contenedor. Al eliminar el contenedor, el volumen y sus datos permanecen.
 
 **¿Para qué sirve en una aplicación con base de datos?**
 
@@ -102,6 +130,24 @@ docker compose up -d --build
 docker compose ps
 docker compose exec proxy wget -qO- http://web:80/
 ```
+
+**Gestión de los servicios:**
+
+```powershell
+docker compose logs proxy
+docker compose restart web
+docker compose stop
+docker compose start
+docker compose down
+docker compose up -d
+```
+
+- `logs`: muestra los registros del servicio.
+- `restart`: reinicia el servicio indicado.
+- `stop`: detiene los servicios sin eliminarlos.
+- `start`: inicia los servicios detenidos.
+- `down`: detiene y elimina los contenedores y la red de Compose.
+- `up -d`: inicia los servicios en segundo plano.
 
 **¿Por qué el proxy utiliza `web:80`?**
 
@@ -146,4 +192,4 @@ Docker Desktop no estaba iniciado y la CLI no podía conectarse a `dockerDesktop
 ## 7. Colaboración
 
 - Repositorio: https://github.com/Harilai/gestor_tareas
-- PR de la práctica Docker: pendiente de crear al integrar `feat/docker` en `main`.
+- Pull Request de Docker: https://github.com/Harilai/gestor_tareas/pull/7 (`feat/docker` → `develop`).
