@@ -6,28 +6,39 @@
 
 ## Requisitos
 
-- TODO: requisitos necesarios en el ordenador.
+- Git.
+- Docker Desktop o Docker Engine con Docker Compose.
 
 ## Ejecutar la aplicación
 
+Clonar el repositorio y entrar en la carpeta:
+
 ```bash
-# TODO: comando para construir e iniciar los servicios
+git clone https://github.com/Harilai/gestor_tareas.git
+cd gestor_tareas
 ```
 
-**URL de acceso:** TODO
+Construir la imagen e iniciar los servicios:
+
+```bash
+docker compose up -d --build
+```
+
+**URL de acceso:** http://localhost:8080
 
 ## Detener y eliminar los contenedores
 
 ```bash
-# TODO: comando
+docker compose down
 ```
 
 ## Arquitectura
 
-- **web**: TODO
-- **proxy**: TODO
-- **Comunicación entre servicios**: TODO
+- **web:** sirve la aplicación con Nginx.
+- **proxy:** recibe las peticiones en el puerto 8080 y las reenvía a `web`.
+- **Comunicación entre servicios:** usan la red interna de Compose; el proxy accede a `http://web:80`.
 
 ## Posibles problemas
 
-Escribid brevemente un error encontrado y cómo lo habéis solucionado.
+- **Puerto 8080 ocupado:** liberar el puerto y volver a iniciar Compose.
+- **Cambios no visibles:** reconstruir con `docker compose up -d --build`.
