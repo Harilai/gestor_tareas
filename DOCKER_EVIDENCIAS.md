@@ -1,7 +1,7 @@
 # Evidencias grupales · Práctica 2 Docker
 
-**Equipo:** TODO  
-**Integrantes:** TODO  
+**Equipo:** Abichuelas  
+**Integrantes:** Daniel Tejero, Pablo Serdio, Pablo Blanco, Eustakio Gonzalez  
 **Fecha:** 27/11/2026
 
 > No hace falta una captura por comando. Bastan resultados breves y explicaciones comprensibles. Las evidencias son del **equipo**.
