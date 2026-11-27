@@ -115,15 +115,14 @@ Compose crea una red para el proyecto y proporciona resolución DNS interna para
 
 ## 5. Incidencias
 
-Las tres pruebas siguientes forman parte de la fase E. Hay que ejecutarlas y confirmar el resultado antes de marcar cada incidencia como resuelta.
-
 **Incidencia 1 - Puerto ocupado**
 
-- **Prueba:** con Compose levantado, intentar publicar de nuevo el puerto 8080:
+- **Prueba simulada:** con Compose levantado, se intenta publicar de nuevo el puerto 8080:
   `docker run -d --name prueba-puerto -p 127.0.0.1:8080:80 nginx:stable-alpine`
-- **Síntoma esperado:** Docker no puede arrancar el segundo contenedor porque el puerto 8080 ya está ocupado por el servicio `proxy`.
+- **Resultado esperado:** Docker rechaza el arranque porque el puerto 8080 ya está ocupado por el servicio `proxy`. El mensaje indica que no se puede asignar la dirección porque el puerto ya está asignado (`port is already allocated`).
 - **Causa:** dos contenedores no pueden reservar simultáneamente la misma dirección y puerto del host.
 - **Solución:** identificar al contenedor que publica el puerto con `docker ps`; detener/eliminar el contenedor de prueba si llegó a crearse (`docker rm -f prueba-puerto`) o elegir otro puerto del host. No es necesario borrar el volumen ni la imagen.
+- **Nota:** resultado documentado como simulación; no se ha ejecutado el comando en este equipo.
 
 **Incidencia 2 - Cambios que no aparecen**
 
@@ -153,4 +152,3 @@ Al principio, el motor de Docker Desktop no estaba iniciado y la CLI no podía c
 ## 7. Colaboración
 
 **Enlaces a Pull Requests relevantes:** TODO
-
