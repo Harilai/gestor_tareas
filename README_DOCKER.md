@@ -2,25 +2,27 @@
 
 **Equipo:** Abichuelas  
 **Integrantes:** Daniel Tejero, Pablo Serdio, Pablo Blanco, Eustakio Gonzalez  
-**Repositorio de GitHub:** https://github.com/Harilai/gestor_tareas
+**Repositorio:** https://github.com/Harilai/gestor_tareas
 
 ## Requisitos
 
 - Git.
 - Docker Desktop o Docker Engine con Docker Compose.
+- Docker iniciado antes de ejecutar los comandos.
 
 ## Ejecutar la aplicación
 
-Clonar el repositorio y entrar en la carpeta:
+Clonar el repositorio y acceder a la carpeta:
 
 ```bash
 git clone https://github.com/Harilai/gestor_tareas.git
 cd gestor_tareas
 ```
 
-Construir la imagen e iniciar los servicios:
+Comprobar la configuración e iniciar los servicios:
 
 ```bash
+docker compose config
 docker compose up -d --build
 ```
 
@@ -32,13 +34,16 @@ docker compose up -d --build
 docker compose down
 ```
 
+Este comando detiene y elimina los contenedores y la red de Compose. No elimina la imagen ni los volúmenes externos.
+
 ## Arquitectura
 
-- **web:** sirve la aplicación con Nginx.
+- **web:** sirve los archivos HTML, CSS y JavaScript con Nginx.
 - **proxy:** recibe las peticiones en el puerto 8080 y las reenvía a `web`.
-- **Comunicación entre servicios:** usan la red interna de Compose; el proxy accede a `http://web:80`.
+- **Comunicación:** ambos servicios usan la red interna de Compose. El proxy accede a `http://web:80`.
 
 ## Posibles problemas
 
-- **Puerto 8080 ocupado:** liberar el puerto y volver a iniciar Compose.
+- **Puerto 8080 ocupado:** liberar el puerto o cambiar el puerto publicado en `compose.yaml`.
 - **Cambios no visibles:** reconstruir con `docker compose up -d --build`.
+- **Proxy sin conexión:** comprobar `proxy/default.conf`; el destino debe ser `http://web:80`.
