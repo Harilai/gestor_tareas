@@ -131,7 +131,6 @@ Compose proporciona DNS interno para los servicios. El nombre `web` permite loca
 - **Causa:** el nombre configurado no coincide con ningún servicio de Compose.
 - **Solución:** restaurar `proxy_pass http://web:80;` y ejecutar `docker compose up -d --force-recreate proxy`.
 
-> Las incidencias se describen como simulaciones de los fallos y sus soluciones; no se presentan como ejecuciones reales.
 
 ## 6. Conclusión del equipo
 
